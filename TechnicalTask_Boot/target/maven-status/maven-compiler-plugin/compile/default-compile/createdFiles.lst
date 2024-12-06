@@ -1,0 +1,10 @@
+ru\CarX\TechnicalTask\models\UserActivityData.class
+ru\CarX\TechnicalTask\repositories\UserActivityDataRepository.class
+ru\CarX\TechnicalTask\services\UserActivityDataService.class
+ru\CarX\TechnicalTask\repositories\UserSyncDataRepository.class
+ru\CarX\TechnicalTask\services\UserSyncDataService.class
+ru\CarX\TechnicalTask\util\UserDataErrorResponse.class
+ru\CarX\TechnicalTask\util\UserSyncDataNotFoundException.class
+ru\CarX\TechnicalTask\controllers\GameDataController.class
+ru\CarX\TechnicalTask\TechnicalTaskBootApplication.class
+ru\CarX\TechnicalTask\models\UserSyncData.class
