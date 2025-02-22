@@ -1,6 +1,5 @@
 #!/bin/bash
 
-DUMP_FILE="/dump/GameData_db-dump.sql"
 # Ожидание запуска сервера PostgreSQL
 until pg_isready -U $POSTGRES_USER; do
   echo "Ожидание запуска PostgreSQL"
