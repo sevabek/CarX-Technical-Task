@@ -1,10 +1,23 @@
-C:\Users\freed\IdeaProjects\TechnicalTask_Boot\src\main\java\ru\CarX\TechnicalTask\controllers\GameDataController.java
-C:\Users\freed\IdeaProjects\TechnicalTask_Boot\src\main\java\ru\CarX\TechnicalTask\services\UserActivityDataService.java
-C:\Users\freed\IdeaProjects\TechnicalTask_Boot\src\main\java\ru\CarX\TechnicalTask\TechnicalTaskBootApplication.java
-C:\Users\freed\IdeaProjects\TechnicalTask_Boot\src\main\java\ru\CarX\TechnicalTask\services\UserSyncDataService.java
-C:\Users\freed\IdeaProjects\TechnicalTask_Boot\src\main\java\ru\CarX\TechnicalTask\util\UserSyncDataNotFoundException.java
-C:\Users\freed\IdeaProjects\TechnicalTask_Boot\src\main\java\ru\CarX\TechnicalTask\util\UserDataErrorResponse.java
-C:\Users\freed\IdeaProjects\TechnicalTask_Boot\src\main\java\ru\CarX\TechnicalTask\models\UserActivityData.java
-C:\Users\freed\IdeaProjects\TechnicalTask_Boot\src\main\java\ru\CarX\TechnicalTask\repositories\UserActivityDataRepository.java
-C:\Users\freed\IdeaProjects\TechnicalTask_Boot\src\main\java\ru\CarX\TechnicalTask\models\UserSyncData.java
-C:\Users\freed\IdeaProjects\TechnicalTask_Boot\src\main\java\ru\CarX\TechnicalTask\repositories\UserSyncDataRepository.java
+/media/seva/Новый том/Linux Working Dir/technical task/TechnicalTask_Boot/src/main/java/ru/CarX/TechnicalTask/models/UserActivityData.java
+/media/seva/Новый том/Linux Working Dir/technical task/TechnicalTask_Boot/src/main/java/ru/CarX/TechnicalTask/config/CassandraMigrationConfig.java
+/media/seva/Новый том/Linux Working Dir/technical task/TechnicalTask_Boot/src/main/java/ru/CarX/TechnicalTask/util/UserDataErrorResponse.java
+/media/seva/Новый том/Linux Working Dir/technical task/TechnicalTask_Boot/src/main/java/ru/CarX/TechnicalTask/repositories/UserSyncDataRepository.java
+/media/seva/Новый том/Linux Working Dir/technical task/TechnicalTask_Boot/src/main/java/ru/CarX/TechnicalTask/models/UserSyncData.java
+/media/seva/Новый том/Linux Working Dir/technical task/TechnicalTask_Boot/src/main/java/ru/CarX/TechnicalTask/config/CassandraConfig.java
+/media/seva/Новый том/Linux Working Dir/technical task/TechnicalTask_Boot/src/main/java/ru/CarX/TechnicalTask/repositories/UserActivityDataRepository.java
+/media/seva/Новый том/Linux Working Dir/technical task/TechnicalTask_Boot/src/main/java/ru/CarX/TechnicalTask/config/LiquibaseMigration.java
+/media/seva/Новый том/Linux Working Dir/technical task/TechnicalTask_Boot/src/main/java/ru/CarX/TechnicalTask/util/UserActivityDataNotFoundException.java
+/media/seva/Новый том/Linux Working Dir/technical task/TechnicalTask_Boot/src/main/java/ru/CarX/TechnicalTask/TechnicalTaskBootApplication.java
+/media/seva/Новый том/Linux Working Dir/technical task/TechnicalTask_Boot/src/main/java/ru/CarX/TechnicalTask/DTO/NewUsersForCountryDTO.java
+/media/seva/Новый том/Linux Working Dir/technical task/TechnicalTask_Boot/src/main/java/ru/CarX/TechnicalTask/config/PostgresConfig.java
+/media/seva/Новый том/Linux Working Dir/technical task/TechnicalTask_Boot/src/main/java/ru/CarX/TechnicalTask/controllers/AnalyticalDataController.java
+/media/seva/Новый том/Linux Working Dir/technical task/TechnicalTask_Boot/src/main/java/ru/CarX/TechnicalTask/util/UserDataExceptionHandler.java
+/media/seva/Новый том/Linux Working Dir/technical task/TechnicalTask_Boot/src/main/java/ru/CarX/TechnicalTask/controllers/GameDataController.java
+/media/seva/Новый том/Linux Working Dir/technical task/TechnicalTask_Boot/src/main/java/ru/CarX/TechnicalTask/util/UserSyncDataNotFoundException.java
+/media/seva/Новый том/Linux Working Dir/technical task/TechnicalTask_Boot/src/main/java/ru/CarX/TechnicalTask/DTO/UserSyncDataDTO.java
+/media/seva/Новый том/Linux Working Dir/technical task/TechnicalTask_Boot/src/main/java/ru/CarX/TechnicalTask/services/UserActivityDataServiceInterface.java
+/media/seva/Новый том/Linux Working Dir/technical task/TechnicalTask_Boot/src/main/java/ru/CarX/TechnicalTask/services/UserSyncDataServiceInterface.java
+/media/seva/Новый том/Linux Working Dir/technical task/TechnicalTask_Boot/src/main/java/ru/CarX/TechnicalTask/util/BindingResultErrorHandler.java
+/media/seva/Новый том/Linux Working Dir/technical task/TechnicalTask_Boot/src/main/java/ru/CarX/TechnicalTask/DTO/UserActivityDTO.java
+/media/seva/Новый том/Linux Working Dir/technical task/TechnicalTask_Boot/src/main/java/ru/CarX/TechnicalTask/services/UserActivityDataService.java
+/media/seva/Новый том/Linux Working Dir/technical task/TechnicalTask_Boot/src/main/java/ru/CarX/TechnicalTask/services/UserSyncDataService.java

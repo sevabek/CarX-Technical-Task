@@ -94,7 +94,7 @@ public class GameDataIntegrationTest {
 
     @Test
     @Order(2)
-    void getUserData_ShouldReturnUserSyncData() throws Exception {
+    void getUserData_ShouldReturnUserSyncDataDTO() throws Exception {
         UUID uuid = UUID.fromString("123e4567-e89b-12d3-a456-556642440000");
         String expected = "{\"uuid\":\"123e4567-e89b-12d3-a456-556642440000\",\"money\":100,\"country\":\"RU\",\"createdAt\":\"2023-12-04T21:24:00\"}";
 

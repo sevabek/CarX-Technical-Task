@@ -56,7 +56,7 @@ public class GameDataController {
      * @return Данные пользователя в формате JSON.
      */
     @GetMapping("/sync/{uuid}")
-    public ResponseEntity<UserSyncDataDTO> getUserData(@PathVariable UUID uuid) {
+    public ResponseEntity<UserSyncDataDTO> getUserData(@PathVariable("uuid") UUID uuid) {
         UserSyncData userSyncData = userSyncDataService.findUserDataByUuid(uuid);
         UserSyncDataDTO userSyncDataDTO = convertToUserSyncDataDTO(userSyncData);
         return ResponseEntity.ok(userSyncDataDTO);

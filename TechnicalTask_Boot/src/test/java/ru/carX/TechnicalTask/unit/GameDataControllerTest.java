@@ -2,6 +2,7 @@ package ru.carX.TechnicalTask.unit;
 
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -13,6 +14,7 @@ import ru.CarX.TechnicalTask.controllers.GameDataController;
 import ru.CarX.TechnicalTask.models.UserSyncData;
 import ru.CarX.TechnicalTask.services.UserActivityDataService;
 import ru.CarX.TechnicalTask.services.UserSyncDataService;
+import ru.CarX.TechnicalTask.util.BindingResultErrorHandler;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
@@ -33,6 +35,9 @@ public class GameDataControllerTest {
 
     @MockBean
     private UserSyncDataService userSyncDataService;
+
+    @MockBean
+    private BindingResultErrorHandler bindingResultErrorHandler;
 
     @Test
     void receiveSyncData_ShouldReturnOk() throws Exception {

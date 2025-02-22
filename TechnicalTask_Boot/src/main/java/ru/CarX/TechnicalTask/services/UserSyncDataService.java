@@ -46,13 +46,14 @@ public class UserSyncDataService implements UserSyncDataServiceInterface {
     @Transactional
     public void updateUserData(UserSyncData userSyncData) {
         Optional<UserSyncData> existingUserSyncData = repository.findByUuid(userSyncData.getUuid());
-        existingUserSyncData
-                .map(userSyncDataToUpdate -> {
-                    userSyncDataToUpdate.setMoney(userSyncData.getMoney());
-                    userSyncDataToUpdate.setCountry(userSyncData.getCountry());
-                    return repository.save(userSyncDataToUpdate);
-                })
-                .orElseGet(() -> repository.save(userSyncData));
+        if (existingUserSyncData.isPresent()) {
+            UserSyncData userSyncDataToUpdate = existingUserSyncData.get();
+            userSyncDataToUpdate.setMoney(userSyncData.getMoney());
+            userSyncDataToUpdate.setCountry(userSyncData.getCountry());
+            repository.save(userSyncDataToUpdate);
+        } else {
+            repository.save(userSyncData);
+        }
     }
 
     /**
