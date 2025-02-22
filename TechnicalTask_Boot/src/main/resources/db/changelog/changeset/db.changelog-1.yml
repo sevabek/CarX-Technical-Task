@@ -1,0 +1,33 @@
+databaseChangeLog:
+  - preConditions:
+      - runningAs:
+          username:  postgres
+  - changeSet:
+      id:  create-user-sync-data-table
+      author:  seva
+      labels: create
+      context: postgres
+      comment: user_sync_data table creation
+      changes:
+        - createTable:
+            tableName:  user_sync_data
+            columns:
+              - column:
+                  name:  uuid
+                  type:  uuid
+                  constraints:
+                    primaryKey:  true
+                    nullable:  false
+              - column:
+                  name:  money
+                  type:  int
+                  constraints:
+                    checkConstraint: money>=0
+              - column:
+                  name:  country
+                  type:  varchar(50)
+              - column:
+                  name:  created_at
+                  type:  timestamp
+                  constraints:
+                    nullable: false

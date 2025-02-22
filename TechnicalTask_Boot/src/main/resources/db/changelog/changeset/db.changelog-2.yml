@@ -1,0 +1,26 @@
+databaseChangeLog:
+  - preConditions:
+      - runningAs:
+          username:  postgres
+  - changeSet:
+      id: insert-into-user-sync-data-table
+      author: seva
+      labels: insert
+      context: postgres
+      comment: insert into user_sync_data table
+      changes:
+        - insert:
+            tableName: user_sync_data
+            columns:
+              - column:
+                  name: uuid
+                  value: 123e4567-e89b-12d3-a456-556642440001
+              - column:
+                  name: money
+                  value: 123
+              - column:
+                  name: country
+                  value: 'ENG'
+              - column:
+                  name: created_at
+                  value: '2023-12-04 21:24:00.000000'

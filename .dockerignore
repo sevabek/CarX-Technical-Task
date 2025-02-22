@@ -1,0 +1,6 @@
+/TechnicalTask_Boot/.idea
+/TechnicalTask_Boot/target
+**/.gitignore
+**/*.md
+/TechnicalTask_Boot/mvnw.*
+**/*.pdf
