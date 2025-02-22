@@ -1,50 +1,47 @@
 package ru.CarX.TechnicalTask.controllers;
 
+import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import ru.CarX.TechnicalTask.DTO.UserSyncDataDTO;
 import ru.CarX.TechnicalTask.models.UserActivityData;
 import ru.CarX.TechnicalTask.models.UserSyncData;
 import ru.CarX.TechnicalTask.services.UserActivityDataService;
 import ru.CarX.TechnicalTask.services.UserSyncDataService;
-import ru.CarX.TechnicalTask.util.UserDataErrorResponse;
-import ru.CarX.TechnicalTask.util.UserSyncDataNotFoundException;
+import ru.CarX.TechnicalTask.util.BindingResultErrorHandler;
 
 import javax.validation.Valid;
-import javax.validation.ValidationException;
-import java.time.LocalDateTime;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.stream.Collectors;
+import java.util.*;
 
+/**
+ * REST контроллер для обработки данных игры.
+ * Предоставляет три эндпоинта для синхронизации данных пользователя, получения данных пользователя и приема игровой статистики.
+ */
 @RestController
 @RequestMapping("/api")
+@RequiredArgsConstructor(onConstructor_ = {@Autowired})
 public class GameDataController {
 
     private final UserActivityDataService userActivityDataService;
-
     private final UserSyncDataService userSyncDataService;
+    private final BindingResultErrorHandler bindingResultErrorHandler;
+    private final ModelMapper modelMapper;
 
-    @Autowired
-    public GameDataController(UserActivityDataService userActivityDataService,
-                              UserSyncDataService userSyncDataService) {
-        this.userActivityDataService = userActivityDataService;
-        this.userSyncDataService = userSyncDataService;
-    }
-
-    // Метод для приема данных синхронизации от пользователя
+    /**
+     * Принимает данные синхронизации от пользователя.
+     *
+     * @param userSyncData Данные синхронизации пользователя в формате JSON.
+     * @param bindingResult Результат валидации данных.
+     * @return Подтверждение получения данных.
+     */
     @PostMapping("/sync")
     public ResponseEntity<Map<String, String>> receiveSyncData(@RequestBody @Valid UserSyncData userSyncData,
                                                                BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
-            String errorMsg = bindingResult
-                    .getAllErrors()
-                    .stream()
-                    .map((x) -> x.getDefaultMessage())
-                    .collect(Collectors.joining(", "));
-            throw new ValidationException(errorMsg);
+            bindingResultErrorHandler.handleError(bindingResult);
         }
         userSyncDataService.updateUserData(userSyncData);
         Map<String, String> response = new HashMap<>();
@@ -52,24 +49,31 @@ public class GameDataController {
         return ResponseEntity.ok(response);
     }
 
-    // Метод для отправки данных пользователю
+    /**
+     * Отправляет данные пользователя.
+     *
+     * @param uuid UUID пользователя.
+     * @return Данные пользователя в формате JSON.
+     */
     @GetMapping("/sync/{uuid}")
-    public ResponseEntity<UserSyncData> getUserData(@PathVariable String uuid) {
+    public ResponseEntity<UserSyncDataDTO> getUserData(@PathVariable UUID uuid) {
         UserSyncData userSyncData = userSyncDataService.findUserDataByUuid(uuid);
-        return ResponseEntity.ok(userSyncData);
+        UserSyncDataDTO userSyncDataDTO = convertToUserSyncDataDTO(userSyncData);
+        return ResponseEntity.ok(userSyncDataDTO);
     }
 
-    // Метод для приема игровой статистики от пользователя
+    /**
+     * Принимает игровую статистику от пользователя.
+     *
+     * @param userActivityData Данные активности пользователя в формате JSON.
+     * @param bindingResult Результат валидации данных.
+     * @return Подтверждение получения данных.
+     */
     @PostMapping("/stats")
     public ResponseEntity<Map<String, String>> receiveActivity(@RequestBody @Valid UserActivityData userActivityData,
                                                                BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
-            String errorMsg = bindingResult
-                    .getAllErrors()
-                    .stream()
-                    .map((x) -> x.getDefaultMessage())
-                    .collect(Collectors.joining(", "));
-            throw new ValidationException(errorMsg);
+            bindingResultErrorHandler.handleError(bindingResult);
         }
         userActivityDataService.saveActivityData(userActivityData);
         Map<String, String> response = new HashMap<>();
@@ -77,22 +81,8 @@ public class GameDataController {
         return ResponseEntity.ok(response);
     }
 
-    @ExceptionHandler
-    private ResponseEntity<UserDataErrorResponse> userDataExceptionHandler(UserSyncDataNotFoundException exception) {
-        UserDataErrorResponse errorResponse = new UserDataErrorResponse(
-                "UserSyncData with that uuid was not found",
-                LocalDateTime.now()
-        );
-        return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
-    }
-
-    @ExceptionHandler
-    private ResponseEntity<UserDataErrorResponse> userValidationExceptionHandler(ValidationException exception) {
-        UserDataErrorResponse errorResponse = new UserDataErrorResponse(
-                exception.getMessage(),
-                LocalDateTime.now()
-        );
-        return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
+    private UserSyncDataDTO convertToUserSyncDataDTO(UserSyncData userSyncData) {
+        return modelMapper.map(userSyncData, UserSyncDataDTO.class);
     }
 }
 

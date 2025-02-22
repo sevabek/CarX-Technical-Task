@@ -1,69 +1,33 @@
 package ru.CarX.TechnicalTask.models;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.springframework.data.cassandra.core.cql.PrimaryKeyType;
+import org.springframework.data.cassandra.core.mapping.Column;
+import org.springframework.data.cassandra.core.mapping.PrimaryKeyColumn;
+import org.springframework.data.cassandra.core.mapping.Table;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.persistence.*;
 import javax.validation.constraints.Min;
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.UUID;
 
-@Entity
-@Table(name = "user_activity_data")
+@Table("user_activity_data")
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class UserActivityData implements Serializable {
-    @Id
-    @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
 
-    @Column(name = "activity")
-    @Min(value= 0, message = "Activity amount cannot be less than 0")
-    private int activity;
+    @PrimaryKeyColumn(name = "uuid", type = PrimaryKeyType.PARTITIONED)
+    private UUID uuid;
 
-    @Column(name = "timestamp")
+    @PrimaryKeyColumn(name = "timestamp", type = PrimaryKeyType.CLUSTERED)
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime timestamp;
 
-    @ManyToOne
-    @JoinColumn(name = "sync_uuid", referencedColumnName = "uuid")
-    private UserSyncData userSyncData;
-
-    public UserActivityData() {}
-
-    public UserActivityData(int activity, LocalDateTime timestamp, UserSyncData userSyncData) {
-        this.activity = activity;
-        this.timestamp = timestamp;
-        this.userSyncData = userSyncData;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public int getActivity() {
-        return activity;
-    }
-
-    public void setActivity(int activity) {
-        this.activity = activity;
-    }
-
-    public LocalDateTime getTimestamp() {
-        return timestamp;
-    }
-
-    public void setTimestamp(LocalDateTime timestamp) {
-        this.timestamp = timestamp;
-    }
-
-    public UserSyncData getUserSyncData() {
-        return userSyncData;
-    }
-
-    public void setUserSyncData(UserSyncData userSyncData) {
-        this.userSyncData = userSyncData;
-    }
+    @Column("activity")
+    @Min(value= 0, message = "Activity cannot be less than 0")
+    private int activity;
 }

@@ -1,23 +1,19 @@
-FROM openjdk:8-slim
-ENV MAVEN_VERSION=3.8.1
-
-RUN apt-get update && apt-get install -y wget tar \
-    && wget -O /tmp/apache-maven.tar.gz https://archive.apache.org/dist/maven/maven-3/${MAVEN_VERSION}/binaries/apache-maven-${MAVEN_VERSION}-bin.tar.gz \
-    && tar xzvf /tmp/apache-maven.tar.gz -C /opt \
-    && ln -s /opt/apache-maven-${MAVEN_VERSION} /opt/maven \
-    && rm /tmp/apache-maven.tar.gz
-
-ENV MAVEN_HOME=/opt/maven
-ENV PATH=${MAVEN_HOME}/bin:${PATH}
-
-RUN mvn -version
-
+FROM maven:3.8.1-openjdk-8-slim AS build
 WORKDIR /app
+# Копируем исходники и скачиваем зависимости
+COPY pom.xml .
+RUN mvn dependency:go-offline
 COPY . .
+RUN mvn clean package -DskipTests
 
-RUN apt-get install -y sed
-RUN sed -i 's/localhost/postgres/' /app/src/main/resources/application.properties
 
-RUN mvn clean package
-
-ENTRYPOINT [ "java", "-jar", "/app/target/TechnicalTask_Boot-1.0-SNAPSHOT.jar" ]
+FROM openjdk:8-jre-slim
+WORKDIR /app
+COPY --from=build /app/target/TechnicalTask_Boot-1.0-SNAPSHOT.jar app.jar
+ENV POSTGRES_PASSWORD=5e-Jo87_hhNf*9
+ENV POSTGRES_USERNAME=postgres
+ENV POSTGRES_HOST=postgres
+ENV CASSANDRA_HOST=cassandra
+ENV TZ=Europe/Moscow
+EXPOSE 8080
+ENTRYPOINT ["java", "-jar", "app.jar"]
