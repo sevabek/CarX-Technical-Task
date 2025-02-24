@@ -21,7 +21,7 @@ jobs:
           username: ${{secrets.DOCKER_HUB_USERNAME}}
           password: ${{secrets.DOCKER_HUB_ACCESS_TOKEN}}
 
-      # Сборка и пуш Docker-образа для основного приложения
+      # Сборка и пуш Docker-образа для java приложения
       - name: Build and Push App Image
         uses: docker/build-push-action@v3
         with:
