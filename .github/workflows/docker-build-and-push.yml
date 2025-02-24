@@ -25,7 +25,7 @@ jobs:
       - name: Build and Push App Image
         uses: docker/build-push-action@v3
         with:
-          context: .
+          context: TechnicalTask_Boot
           file: TechnicalTask_Boot/Dockerfile
           push: true
           tags: ${{secrets.DOCKER_HUB_USERNAME}}/app:latest
@@ -34,7 +34,7 @@ jobs:
       - name: Build and Push Cassandra Image
         uses: docker/build-push-action@v3
         with:
-          context: .
+          context: databases/Cassandra
           file: databases/Cassandra/Dockerfile
           push: true
           tags: ${{secrets.DOCKER_HUB_USERNAME}}/cassandra:latest
@@ -43,7 +43,7 @@ jobs:
       - name: Build and Push Postgres Image
         uses: docker/build-push-action@v3
         with:
-          context: .
+          context: databases/Postgres
           file: databases/Postgres/Dockerfile
           push: true
           tags: ${{secrets.DOCKER_HUB_USERNAME}}/postgres:latest
