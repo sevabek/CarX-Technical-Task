@@ -29,8 +29,6 @@ jobs:
           file: TechnicalTask_Boot/Dockerfile
           push: true
           tags: ${{secrets.DOCKER_HUB_USERNAME}}/app:latest
-          cache-from: type=registry,ref=${{secrets.DOCKER_HUB_USERNAME}}/app:cache
-          cache-to: type=registry,ref=${{secrets.DOCKER_HUB_USERNAME}}/app:cache,mode=max
 
       # Сборка и пуш Docker-образа для Cassandra
       - name: Build and Push Cassandra Image
@@ -40,8 +38,6 @@ jobs:
           file: databases/Cassandra/Dockerfile
           push: true
           tags: ${{secrets.DOCKER_HUB_USERNAME}}/cassandra:latest
-          cache-from: type=registry,ref=${{secrets.DOCKER_HUB_USERNAME}}/cassandra:cache
-          cache-to: type=registry,ref=${{secrets.DOCKER_HUB_USERNAME}}/cassandra:cache,mode=max
 
       # Сборка и пуш Docker-образа для Postgres
       - name: Build and Push Postgres Image
@@ -51,5 +47,3 @@ jobs:
           file: databases/Postgres/Dockerfile
           push: true
           tags: ${{secrets.DOCKER_HUB_USERNAME}}/postgres:latest
-          cache-from: type=registry,ref=${{secrets.DOCKER_HUB_USERNAME}}/postgres:cache
-          cache-to: type=registry,ref=${{secrets.DOCKER_HUB_USERNAME}}/postgres:cache,mode=max
