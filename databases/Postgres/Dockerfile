@@ -1,6 +1,6 @@
 FROM postgres:17
 ENV POSTGRES_USER=postgres
-ENV POSTGRES_PASSWORD=5e-Jo87_hhNf*9
+ARG POSTGRES_PASSWORD
 ENV POSTGRES_NAME=GameData_db
 COPY restore.sh ./docker-entrypoint-initdb.d/restore.sh
 RUN chmod +x ./docker-entrypoint-initdb.d/restore.sh

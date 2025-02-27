@@ -11,7 +11,7 @@ RUN mvn clean package -DskipTests
 FROM openjdk:8-jre-slim
 WORKDIR /app
 COPY --from=build /app/target/TechnicalTask_Boot-1.0-SNAPSHOT.jar app.jar
-ENV POSTGRES_PASSWORD=5e-Jo87_hhNf*9
+ARG POSTGRES_PASSWORD
 ENV POSTGRES_USERNAME=postgres
 ENV POSTGRES_HOST=postgres
 ENV CASSANDRA_HOST=cassandra
