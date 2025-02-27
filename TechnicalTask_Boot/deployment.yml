@@ -1,0 +1,57 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app
+  template:
+    metadata:
+      labels:
+        app: app
+    spec:
+      initContainers:
+        - name: wait-for-postgres
+          image: postgres:latest
+          command: ["sh", "-c", "until pg_isready -U postgres -h postgres; do sleep 2; done"]
+        
+        - name: wait-for-cassandra
+          image: cassandra:latest
+          command: ["sh", "-c", "until cqlsh -e 'SELECT release_version FROM system.local;' cassandra; do sleep 2; done"]
+
+      containers:
+        - name: app
+          image: sevabek/app:latest
+          ports:
+            - containerPort: 8080
+          # env:
+          #   - name: POSTGRES_HOST
+          #     value: "postgres"
+          #   - name: CASSANDRA_HOST
+          #     value: "cassandra"
+          # livenessProbe:
+          #   exec:
+          #     command:
+          #       - pg_isready
+          #       - -U
+          #       - postgres
+          #   initialDelaySeconds: 60
+          #   periodSeconds: 30
+          #   timeoutSeconds: 10
+          #   failureThreshold: 2
+          # readinessProbe:
+          #   exec:
+          #     command:
+          #       - pg_isready
+          #       - -U
+          #       - postgres
+          #   initialDelaySeconds: 60
+          #   periodSeconds: 30
+          #   timeoutSeconds: 10
+          #   failureThreshold: 2
+          resources:
+            limits:
+              memory: "1Gi"
+              cpu: "500m"
