@@ -1,5 +1,6 @@
 FROM maven:3.8.1-openjdk-8-slim AS build
 WORKDIR /app
+RUN ls
 # Копируем исходники и скачиваем зависимости
 COPY pom.xml .
 RUN mvn dependency:go-offline
