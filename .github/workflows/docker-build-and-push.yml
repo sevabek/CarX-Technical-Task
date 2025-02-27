@@ -31,6 +31,7 @@ jobs:
           tags: ${{secrets.DOCKER_HUB_USERNAME}}/app:latest
           cache-from: type=registry,ref=${{secrets.DOCKER_HUB_USERNAME}}/app:cache
           cache-to: type=registry,ref=${{secrets.DOCKER_HUB_USERNAME}}/app:cache,mode=max
+          build-args: POSTGRES_PASSWORD=${{secrets.DOCKER_POSTGRES_PASSWORD}}
 
       # Сборка и пуш Docker-образа для Cassandra
       - name: Build and Push Cassandra Image
@@ -53,3 +54,4 @@ jobs:
           tags: ${{secrets.DOCKER_HUB_USERNAME}}/postgres:latest
           cache-from: type=registry,ref=${{secrets.DOCKER_HUB_USERNAME}}/postgres:cache
           cache-to: type=registry,ref=${{secrets.DOCKER_HUB_USERNAME}}/postgres:cache,mode=max
+          build-args: POSTGRES_PASSWORD=${{secrets.DOCKER_POSTGRES_PASSWORD}}
