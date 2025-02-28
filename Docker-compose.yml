@@ -1,6 +1,10 @@
 services:
   app:
     build: ./TechnicalTask_Boot
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 5FA6Jq87_Th*9
+      POSTGRES_DB_NAME: GameData_DB
     depends_on:
       postgres:
         condition: service_healthy
@@ -11,6 +15,10 @@ services:
 
   postgres:
     build: ./databases/Postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 5FA6Jq87_Th*9
+      POSTGRES_DB_NAME: GameData_DB
     volumes:
       - postgresdb:/var/lib/postgresql
     healthcheck:
