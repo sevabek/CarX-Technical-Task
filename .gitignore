@@ -12,6 +12,10 @@ target/
 *.iml
 *.ipr
 
+### Secrets ###
+secret.yml
+sealed-secret-key.yml
+
 ### Eclipse ###
 .apt_generated
 .classpath
