@@ -15,11 +15,11 @@ spec:
       initContainers:
         - name: wait-for-postgres
           image: postgres:latest
-          command: ["sh", "-c", "until pg_isready -U postgres -h postgres; do sleep 2; done"]
+          command: ["sh", "-c", "until pg_isready -U postgres -h postgres; do sleep 3; done"]
         
         - name: wait-for-cassandra
           image: cassandra:latest
-          command: ["sh", "-c", "until cqlsh -e 'SELECT release_version FROM system.local;' cassandra; do sleep 2; done"]
+          command: ["sh", "-c", "until cqlsh -e 'SELECT release_version FROM system.local;' cassandra; do sleep 3; done"]
 
       containers:
         - name: app
@@ -46,21 +46,21 @@ spec:
 
           livenessProbe:
             httpGet:
-              path: localhost:8080/actuator/health/liveness
+              path: /actuator/health/liveness
               port: 8080
-            initialDelaySeconds: 60
+            initialDelaySeconds: 100
             periodSeconds: 30
             timeoutSeconds: 5
-            failureThreshold: 2
+            failureThreshold: 3
 
           readinessProbe:
             httpGet:
-              path: localhost:8080/actuator/health/readiness
+              path: /actuator/health/readiness
               port: 8080
-            initialDelaySeconds: 60
+            initialDelaySeconds: 100
             periodSeconds: 30
             timeoutSeconds: 5
-            failureThreshold: 2
+            failureThreshold: 3
 
           resources:
             limits:
