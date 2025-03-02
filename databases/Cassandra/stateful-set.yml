@@ -21,6 +21,7 @@ spec:
           volumeMounts:
             - mountPath: /var/lib/cassandra
               name: cassandra-storage
+
           livenessProbe:
             exec:
               command:
@@ -31,6 +32,7 @@ spec:
             periodSeconds: 30
             timeoutSeconds: 10
             failureThreshold: 2
+
           readinessProbe:
             exec:
               command:
@@ -41,6 +43,12 @@ spec:
             periodSeconds: 30
             timeoutSeconds: 10
             failureThreshold: 2
+
+          resources:
+            limits:
+              memory: "256Mi"
+              cpu: "500m"
+
   volumeClaimTemplates:
     - metadata:
         name: cassandra-storage
