@@ -22,12 +22,11 @@ jobs:
         run: |
           mkdir -p $HOME/.kube
           echo "${{secrets.KUBE_CONFIG}}" | base64 --decode > $HOME/.kube/config
-          kubectl get nodes
 
       - name: Deploy application
         run: |
-          kubectl apply -f databases/Cassandra/stateful-set.yml -f databases/Cassandra/service.yml 
-          -f databases/Postgres/stateful-set.yml -f databases/Postgres/service.yml 
-          -f TechnicalTask_Boot/deployment.yml -f TechnicalTask_Boot/service.yml 
+          kubectl apply -f databases/Cassandra/stateful-set.yml -f databases/Cassandra/service.yml \
+          -f databases/Postgres/stateful-set.yml -f databases/Postgres/service.yml \
+          -f TechnicalTask_Boot/deployment.yml -f TechnicalTask_Boot/service.yml \
           -f sealed-secret.yml
 
