@@ -64,7 +64,8 @@ spec:
           resources:
             limits:
               memory: "256Mi"
-              cpu: "500m"
+              cpu: "250m"
+              
   volumeClaimTemplates:
     - metadata:
         name: postgres-storage
