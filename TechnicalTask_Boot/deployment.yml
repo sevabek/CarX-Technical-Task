@@ -14,11 +14,11 @@ spec:
     spec:
       initContainers:
         - name: wait-for-postgres
-          image: postgres:latest
+          image: postgres:17
           command: ["sh", "-c", "until pg_isready -U postgres -h postgres; do sleep 3; done"]
         
         - name: wait-for-cassandra
-          image: cassandra:latest
+          image: cassandra:4.0
           command: ["sh", "-c", "until cqlsh -e 'SELECT release_version FROM system.local;' cassandra; do sleep 3; done"]
 
       containers:

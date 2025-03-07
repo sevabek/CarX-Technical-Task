@@ -45,7 +45,7 @@ spec:
                 - pg_isready
                 - -U
                 - postgres
-            initialDelaySeconds: 60
+            initialDelaySeconds: 120
             periodSeconds: 30
             timeoutSeconds: 10
             failureThreshold: 2
@@ -53,25 +53,29 @@ spec:
           readinessProbe:
             exec:
               command:
-                - pg_isready
+                - psql
                 - -U
                 - postgres
-            initialDelaySeconds: 60
+                - -tc
+                - "SELECT datname FROM pg_database WHERE datname='${POSTGRES_DB_NAME}';"
+            initialDelaySeconds: 120
             periodSeconds: 30
             timeoutSeconds: 10
             failureThreshold: 2
 
           resources:
             limits:
-              memory: "256Mi"
-              cpu: "250m"
-              
+              memory: "1024Mi"
+              cpu: "1000m"
+
   volumeClaimTemplates:
     - metadata:
         name: postgres-storage
+        namespace: default
       spec:
         accessModes:
           - ReadWriteOnce
         resources:
           requests:
-            storage: 512Mi
+            storage: 2Gi
+        storageClassName: nvme.network-drives.csi.timeweb.cloud

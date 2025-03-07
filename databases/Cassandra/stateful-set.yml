@@ -28,7 +28,7 @@ spec:
                 - cqlsh
                 - -e
                 - "SELECT release_version FROM system.local;"
-            initialDelaySeconds: 60
+            initialDelaySeconds: 120
             periodSeconds: 30
             timeoutSeconds: 10
             failureThreshold: 2
@@ -38,23 +38,25 @@ spec:
               command:
                 - cqlsh
                 - -e
-                - "SELECT release_version FROM system.local;"
-            initialDelaySeconds: 60
+                - "SELECT keyspace_name FROM system_schema.keyspaces WHERE keyspace_name = 'user_data_keyspace';"
+            initialDelaySeconds: 120
             periodSeconds: 30
             timeoutSeconds: 10
             failureThreshold: 2
 
           resources:
             limits:
-              memory: "256Mi"
-              cpu: "250m"
+              memory: "5Gi"
+              cpu: "2000m"
 
   volumeClaimTemplates:
     - metadata:
         name: cassandra-storage
+        namespace: default
       spec:
         accessModes:
           - ReadWriteOnce
         resources:
           requests:
-            storage: 512Mi
+            storage: 3Gi
+        storageClassName: nvme.network-drives.csi.timeweb.cloud
