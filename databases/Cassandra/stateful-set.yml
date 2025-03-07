@@ -19,9 +19,9 @@ spec:
           ports:
             - containerPort: 9042
           volumeMounts:
-            - mountPath: /var/lib/cassandra
+            - mountPath: /opt/cassandra/data
               name: cassandra-storage
-
+            
           livenessProbe:
             exec:
               command:
@@ -49,7 +49,6 @@ spec:
               memory: "5Gi"
               cpu: "2000m"
 
-
   volumeClaimTemplates:
     - metadata:
         name: cassandra-storage
@@ -59,5 +58,5 @@ spec:
           - ReadWriteOnce
         resources:
           requests:
-            storage: 3Gi
+            storage: 1Gi
         storageClassName: nvme.network-drives.csi.timeweb.cloud
