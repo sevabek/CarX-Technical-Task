@@ -36,7 +36,7 @@ spec:
                   key: POSTGRES_DB_NAME
 
           volumeMounts:
-            - mountPath: /var/lib/postgresql
+            - mountPath: /var/lib/postgresql/data
               name: postgres-storage
 
           livenessProbe:
@@ -45,7 +45,7 @@ spec:
                 - pg_isready
                 - -U
                 - postgres
-            initialDelaySeconds: 120
+            initialDelaySeconds: 60
             periodSeconds: 30
             timeoutSeconds: 10
             failureThreshold: 2
@@ -58,7 +58,7 @@ spec:
                 - postgres
                 - -tc
                 - "SELECT datname FROM pg_database WHERE datname='${POSTGRES_DB_NAME}';"
-            initialDelaySeconds: 120
+            initialDelaySeconds: 60
             periodSeconds: 30
             timeoutSeconds: 10
             failureThreshold: 2

@@ -19,7 +19,7 @@ spec:
           ports:
             - containerPort: 9042
           volumeMounts:
-            - mountPath: /var/lib/cassandra
+            - mountPath: /opt/cassandra/data
               name: cassandra-storage
 
           livenessProbe:
@@ -28,7 +28,7 @@ spec:
                 - cqlsh
                 - -e
                 - "SELECT release_version FROM system.local;"
-            initialDelaySeconds: 120
+            initialDelaySeconds: 60
             periodSeconds: 30
             timeoutSeconds: 10
             failureThreshold: 2
@@ -39,7 +39,7 @@ spec:
                 - cqlsh
                 - -e
                 - "SELECT keyspace_name FROM system_schema.keyspaces WHERE keyspace_name = 'user_data_keyspace';"
-            initialDelaySeconds: 120
+            initialDelaySeconds: 60
             periodSeconds: 30
             timeoutSeconds: 10
             failureThreshold: 2
