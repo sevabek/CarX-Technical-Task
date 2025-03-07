@@ -1,7 +1,7 @@
 databaseChangeLog:
   - preConditions:
       - runningAs:
-          username:  sevabek
+          username:  postgres
   - changeSet:
       id: insert-into-user-sync-data-table
       author: seva
