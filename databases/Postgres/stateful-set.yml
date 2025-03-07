@@ -36,15 +36,17 @@ spec:
                   key: POSTGRES_DB_NAME
 
           volumeMounts:
-            - mountPath: /var/lib/cassandra
+            - mountPath: /var/lib/postgres
               name: postgres-storage
 
           livenessProbe:
             exec:
               command:
-                - pg_isready
+                - psql
                 - -U
                 - postgres
+                - -tc
+                - "SELECT datname FROM pg_database WHERE datname='${POSTGRES_DB_NAME}';"
             initialDelaySeconds: 60
             periodSeconds: 30
             timeoutSeconds: 10
@@ -53,11 +55,12 @@ spec:
           readinessProbe:
             exec:
               command:
-                - psql
-                - -U
-                - postgres
-                - -tc
-                - "SELECT datname FROM pg_database WHERE datname='${POSTGRES_DB_NAME}';"
+                - pg_isready
+                - -h
+                - localhost 
+                - -p
+                - '5432'
+
             initialDelaySeconds: 60
             periodSeconds: 30
             timeoutSeconds: 10

@@ -27,7 +27,7 @@ spec:
               command:
                 - cqlsh
                 - -e
-                - "SELECT release_version FROM system.local;"
+                - "SELECT keyspace_name FROM system_schema.keyspaces WHERE keyspace_name = 'user_data_keyspace';"
             initialDelaySeconds: 60
             periodSeconds: 30
             timeoutSeconds: 10
@@ -36,9 +36,9 @@ spec:
           readinessProbe:
             exec:
               command:
-                - cqlsh
-                - -e
-                - "SELECT keyspace_name FROM system_schema.keyspaces WHERE keyspace_name = 'user_data_keyspace';"
+                - lsof
+                - -iTCP:9042
+                - -sTCP:LISTEN
             initialDelaySeconds: 60
             periodSeconds: 30
             timeoutSeconds: 10
