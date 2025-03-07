@@ -36,7 +36,7 @@ spec:
                   key: POSTGRES_DB_NAME
 
           volumeMounts:
-            - mountPath: /var/lib/postgresql/data
+            - mountPath: /var/lib/cassandra
               name: postgres-storage
 
           livenessProbe:
