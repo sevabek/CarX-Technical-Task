@@ -49,6 +49,7 @@ spec:
               memory: "5Gi"
               cpu: "2000m"
 
+
   volumeClaimTemplates:
     - metadata:
         name: cassandra-storage
